@@ -194,3 +194,13 @@ test('TC_016' ,async({page})=> {
  console.log(errormessage);
 })
 
+test('TC_017' , async ({page}) => {
+await page.locator('#user-name').fill("standard_user");
+await page.locator('#password').fill("secret_sauce");
+
+await page.keyboard.press('Enter');
+await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html'); 
+
+});
+
+
