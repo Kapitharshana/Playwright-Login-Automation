@@ -211,3 +211,15 @@ await page.locator('#login-button').dblclick();
 await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html'); 
 
 });
+
+//use locked outuser
+test('TC_019' , async ({page}) => {
+await page.locator('#user-name').fill("locked_out_user");
+await page.locator('#password').fill("secret_sauce");
+await page.locator('#login-button').click();
+
+await expect(page.locator('[data-test="error"]')).toBeVisible();
+await expect(page.locator('[data-test="error"]')).toHaveText(' Epic sadface: Sorry, this user has been locked out.');
+ 
+});
+
