@@ -184,3 +184,13 @@ test('TC_015' ,async({page})=> {
  console.log(errormessage);
 })
 
+test('TC_016' ,async({page})=> {
+ await page.locator('#user-name').fill(' standard_user ');
+ await page.locator('#password').fill('secret_sauce');
+ await page.locator('#login-button').click();
+ await expect(page.locator('[data-test="error"]')).toBeVisible();
+
+ const errormessage= await page.locator('[data-test="error"]').textContent();
+ console.log(errormessage);
+})
+
