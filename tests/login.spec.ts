@@ -203,4 +203,11 @@ await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
 
 });
 
+//use built-in method for double click 
+test('TC_018' , async ({page}) => {
+await page.locator('#user-name').fill("standard_user");
+await page.locator('#password').fill("secret_sauce");
+await page.locator('#login-button').dblclick();
+await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html'); 
 
+});
