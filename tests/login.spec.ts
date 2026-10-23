@@ -63,7 +63,7 @@ test('TC006', async({page}) => {
 })
 
 test('TC007', async({page}) => {
-   await page.locator('#user-name').fill('');
+ await page.locator('#user-name').fill('');
  await page.locator('#password').fill('secret_sauce');
  await page.locator('#login-button').click();
  await expect(page.locator('[data-test="error"]')).toBeVisible();
@@ -72,6 +72,18 @@ test('TC007', async({page}) => {
  console.log(errormessage);
 })
 
+//simulate an offline network condition.
+test('TC_008', async({page,context}) => {
+     await context.setOffline(true);
+
+await page.locator('#user-name').fill("standard_user");
+await page.locator('#password').fill("secret_sauce");
+await page.locator('#login-button').click();
+await expect(page).toHaveURL('https://www.saucedemo.com/'); 
+})
+
+
+//browser options
 test('TC_009' , async ({page}) => {
 //login
 await page.locator('#user-name').fill("standard_user");
@@ -83,9 +95,61 @@ await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
 await page.goBack();
 await expect(page).toHaveURL('https://www.saucedemo.com/');
 
-//brwser forward move
+//browser forward move
 await page.goForward();
 await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
 
 });
+
+
+test('TC_010' , async ({page}) => {
+//login
+await page.locator('#user-name').fill("standard_user");
+await page.locator('#password').fill("secret_sauce");
+await page.locator('#login-button').click();
+await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html'); 
+
+//click hamburger menu
+//await page.getByRole('button', { name: 'Open Menu' }).click(); // this is was used from the alt atrrtibute's name.
+await page.locator('#react-burger-menu-btn').click();
+
+//logout
+await page.locator('#logout_sidebar_link').click();
+await expect(page).toHaveURL('https://www.saucedemo.com/'); 
+
+
+//back move (playwright have built-in functionality)
+await page.goBack();
+await expect(page).toHaveURL('https://www.saucedemo.com/'); //positive case
+//await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');  //check negative case
+});
+
+
+test('TC_011' , async ({page}) => {
+//login
+await page.locator('#user-name').fill("standard_user");
+await page.locator('#password').fill("secret_sauce");
+await page.locator('#login-button').click();
+await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html'); 
+
+//click hamburger menu
+await page.locator('#react-burger-menu-btn').click();
+
+//logout
+await page.locator('#logout_sidebar_link').click();
+await expect(page).toHaveURL('https://www.saucedemo.com/'); 
+
+
+//back move (playwright have built-in functionality)
+await page.goBack();
+await expect(page).toHaveURL('https://www.saucedemo.com/'); 
+
+//browser forward move
+await page.goForward();
+await expect(page).toHaveURL('https://www.saucedemo.com/');  //postive case
+//await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html'); //negative case
+
+});
+
+
 
