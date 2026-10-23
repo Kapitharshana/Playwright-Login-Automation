@@ -79,7 +79,7 @@ test('TC_008', async({page,context}) => {
 await page.locator('#user-name').fill("standard_user");
 await page.locator('#password').fill("secret_sauce");
 await page.locator('#login-button').click();
-await expect(page).toHaveURL('https://www.saucedemo.com/'); 
+await expect(page).toHaveURL('https://www.saucedemo.com/'); //negative case check
 })
 
 
@@ -139,7 +139,6 @@ await page.locator('#react-burger-menu-btn').click();
 await page.locator('#logout_sidebar_link').click();
 await expect(page).toHaveURL('https://www.saucedemo.com/'); 
 
-
 //back move (playwright have built-in functionality)
 await page.goBack();
 await expect(page).toHaveURL('https://www.saucedemo.com/'); 
@@ -150,6 +149,16 @@ await expect(page).toHaveURL('https://www.saucedemo.com/');  //postive case
 //await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html'); //negative case
 
 });
+
+
+test('TC_012', async({page}) =>{
+ await page.goto('https://www.saucedemo.com/inventory-item.html?id=4');
+ //await expect(page).toHaveURL('https://www.saucedemo.com/inventory-item.html?id=4'); negative case
+ await expect(page).toHaveURL('https://www.saucedemo.com/');
+ await expect(page.locator('#login-button')).toBeVisible();
+
+})
+
 
 
 
