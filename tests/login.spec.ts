@@ -250,3 +250,10 @@ test('TC0022', async({page}) => {
   await expect(errorMessage).toBeHidden();
 });
 
+
+test('TC_023' , async({page}) =>{
+await expect(page.locator('#user-name')).toBeVisible();
+await expect(page.locator('#password')).toBeVisible();
+await expect(page.locator('#login-button')).toBeVisible();
+
+})
