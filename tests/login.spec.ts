@@ -232,3 +232,21 @@ await page.locator('#login-button').dblclick();
 await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html'); 
 
 });
+
+test('TC0022', async({page}) => {
+ await page.locator('#user-name').fill("");
+ await page.locator('#password').fill("");
+ await page.locator('#login-button').click();
+ 
+ const errorMessage = page.locator('[data-test="error"]');
+
+  await expect(errorMessage).toBeVisible();
+
+  const errormessage = await errorMessage.textContent();
+  console.log(errormessage);
+
+  await page.locator('[data-test="error-button"]').click();
+
+  await expect(errorMessage).toBeHidden();
+});
+
