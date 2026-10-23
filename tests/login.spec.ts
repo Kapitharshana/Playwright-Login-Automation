@@ -159,6 +159,9 @@ test('TC_012', async({page}) =>{
 
 })
 
-
+test('TC_013', async({page})=>{
+     await page.locator('#password').fill('secret_sauce');
+     await expect(page.locator('#password')).toHaveAttribute('type','password');
+})
 
 
